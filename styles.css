@@ -5,25 +5,20 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
     color: #333;
-    background-color: #f5f5f5;
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
 }
 
 header h1 {
@@ -31,190 +26,120 @@ header h1 {
     margin-bottom: 10px;
 }
 
-header p {
-    color: #7f8c8d;
-    font-size: 1.1em;
-}
-
 .main-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: 20px;
 }
 
 .input-panel, .results-panel {
     background: white;
-    padding: 25px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 section {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 h2 {
     color: #2c3e50;
     margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ecf0f1;
 }
 
-/* Стили для ввода данных */
 .data-input-methods {
     display: flex;
     gap: 10px;
     margin-bottom: 15px;
-    flex-wrap: wrap;
 }
 
 button {
     background: #3498db;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background 0.3s;
 }
 
 button:hover {
     background: #2980b9;
 }
 
-button:disabled {
-    background: #bdc3c7;
-    cursor: not-allowed;
-}
-
 .calculate-btn {
     background: #27ae60;
     width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
+    padding: 10px;
 }
 
 .calculate-btn:hover {
     background: #219a52;
 }
 
-.copy-btn {
-    background: #9b59b6;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.copy-btn:hover {
-    background: #8e44ad;
-}
-
-.data-table-container {
-    overflow-x: auto;
-    margin-bottom: 15px;
-}
-
 table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
 }
 
 th, td {
-    padding: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
     text-align: left;
-    border: 1px solid #ecf0f1;
 }
 
 th {
     background: #34495e;
     color: white;
-    font-weight: 600;
-}
-
-tr:nth-child(even) {
-    background: #f8f9fa;
 }
 
 input[type="number"] {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #bdc3c7;
+    padding: 6px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
 }
 
-input[type="number"]:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
-}
-
-/* Стили для выбора модели */
 .model-selection {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 select {
-    padding: 10px;
-    border: 1px solid #bdc3c7;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
-    background: white;
 }
 
-/* Стили для результатов */
-.results-container, .report-container {
+.report-container {
     background: #f8f9fa;
     padding: 15px;
     border-radius: 4px;
-    min-height: 100px;
-    border: 1px solid #e9ecef;
+    min-height: 200px;
 }
 
 .no-results {
     text-align: center;
-    color: #7f8c8d;
+    color: #666;
     font-style: italic;
 }
 
-.result-item {
-    margin-bottom: 10px;
-    padding: 10px;
-    background: white;
-    border-radius: 4px;
-    border-left: 4px solid #3498db;
-}
-
-.result-item h4 {
-    color: #2c3e50;
-    margin-bottom: 5px;
-}
-
-.result-value {
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    color: #2c3e50;
-}
-
-/* Стили для графика */
 .chart-container {
-    position: relative;
-    height: 400px;
-    background: white;
-    border: 1px solid #e9ecef;
-    border-radius: 4px;
-    padding: 15px;
+    height: 300px;
+    margin-bottom: 20px;
 }
 
-/* Сообщения валидации */
+.report-content h3 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.report-content p {
+    margin-bottom: 8px;
+}
+
 .validation-message {
-    padding: 10px;
+    padding: 8px;
     border-radius: 4px;
     margin-top: 10px;
 }
@@ -222,265 +147,18 @@ select {
 .validation-message.error {
     background: #ffeaa7;
     color: #d63031;
-    border: 1px solid #fab1a0;
 }
 
-.validation-message.success {
-    background: #55efc4;
-    color: #00b894;
-    border: 1px solid #00b894;
-}
-
-/* Адаптивность */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .main-content {
         grid-template-columns: 1fr;
     }
     
-    .container {
-        padding: 10px;
-    }
-}
-
-@media (max-width: 768px) {
     .data-input-methods {
         flex-direction: column;
     }
     
     button {
         width: 100%;
-    }
-    
-    .model-selection {
-        flex-direction: column;
-    }
-}
-
-/* Стили для результатов */
-.results-content {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.formula {
-    font-family: 'Cambria Math', 'Times New Roman', serif;
-    font-size: 16px;
-    font-weight: bold;
-    color: #2c3e50;
-    padding: 8px;
-    background: #ecf0f1;
-    border-radius: 4px;
-}
-
-.coefficients {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.coefficient {
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    padding: 4px 8px;
-    background: white;
-    border-radius: 3px;
-    border-left: 3px solid #3498db;
-}
-
-.accuracy {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.r-squared {
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.quality {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.quality.excellent { background: #27ae60; color: white; }
-.quality.good { background: #f39c12; color: white; }
-.quality.moderate { background: #e67e22; color: white; }
-.quality.poor { background: #e74c3c; color: white; }
-
-/* Стили для отчета */
-.report-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.report-header {
-    background: #34495e;
-    color: white;
-    padding: 15px;
-    border-radius: 6px;
-}
-
-.report-header h3 {
-    margin-bottom: 10px;
-    color: white;
-}
-
-.report-meta {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    font-size: 14px;
-}
-
-.report-section {
-    background: white;
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid #e9ecef;
-}
-
-.report-section h4 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #ecf0f1;
-    padding-bottom: 8px;
-}
-
-.formula-display {
-    font-family: 'Cambria Math', 'Times New Roman', serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: #2c3e50;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    border: 1px solid #e9ecef;
-}
-
-.coefficients-display {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.coefficient-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    border-left: 4px solid #3498db;
-}
-
-.coefficient-label {
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.coefficient-value {
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    color: #e74c3c;
-}
-
-.metrics-grid, .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-}
-
-.metric-item, .stat-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 4px;
-    border: 1px solid #e9ecef;
-}
-
-.metric-label, .stat-item span {
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.metric-value {
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-}
-
-.quality-excellent { color: #27ae60; }
-.quality-good { color: #f39c12; }
-.quality-moderate { color: #e67e22; }
-.quality-poor { color: #e74c3c; }
-
-.interpretation {
-    line-height: 1.6;
-    color: #555;
-}
-
-.interpretation p {
-    margin-bottom: 8px;
-}
-
-/* Сообщения об ошибках */
-.error-message {
-    background: #ffeaa7;
-    border: 1px solid #fab1a0;
-    border-radius: 6px;
-    padding: 15px;
-    color: #d63031;
-}
-
-.error-message h4 {
-    color: #d63031;
-    margin-bottom: 10px;
-}
-
-.error-hint {
-    font-size: 14px;
-    color: #e17055;
-    margin-top: 10px;
-    font-style: italic;
-}
-
-/* Анимации */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.result-item, .report-section {
-    animation: fadeIn 0.3s ease-out;
-}
-
-/* Поддержка мобильных устройств */
-@media (max-width: 768px) {
-    .report-meta {
-        flex-direction: column;
-        gap: 5px;
-    }
-    
-    .metrics-grid, .stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .coefficient-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-    
-    .accuracy {
-        flex-direction: column;
-        align-items: flex-start;
     }
 }
