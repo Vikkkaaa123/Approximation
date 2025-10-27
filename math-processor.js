@@ -30,8 +30,20 @@ class MathProcessor {
             sumX2 += point.x * point.x;
         });
 
-        const a = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-        const b = (sumY * sumX2 - sumX * sumXY) / (n * sumX2 - sumX * sumX);
+        const denominator = n * sumX2 - sumX * sumX;
+        
+        if (Math.abs(denominator) < 1e-10) {
+            const avgY = sumY / n;
+            return {
+                coefficients: [0, avgY],
+                formula: `y = ${avgY.toFixed(4)}`,
+                rSquared: 0,
+                functionType: 'linear'
+            };
+        }
+
+        const a = (n * sumXY - sumX * sumY) / denominator;
+        const b = (sumY * sumX2 - sumX * sumXY) / denominator;
 
         const formula = `y = ${a.toFixed(4)}x ${b >= 0 ? '+' : ''} ${b.toFixed(4)}`;
         const rSquared = this.calculateRSquared(data, (x) => a * x + b);
