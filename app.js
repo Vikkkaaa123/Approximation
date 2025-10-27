@@ -18,7 +18,6 @@ class ApproximationApp {
         for (let i = 0; i < 3; i++) {
             this.dataManager.addRow();
         }
-        this.createEmptyChart();
     }
 
     calculate() {
@@ -48,16 +47,16 @@ class ApproximationApp {
                        results.rSquared >= 0.5 ? 'удовлетворительная' : 'низкая';
         
         container.innerHTML = `
+            <div class="chart-container">
+                <canvas id="approximationChart"></canvas>
+            </div>
             <div class="report-content">
                 <h3>Отчет по аппроксимации</h3>
-                <div class="report-section">
-                    <h4>Результаты расчета</h4>
-                    <p><strong>Тип функции:</strong> ${this.getFunctionName(functionType)}</p>
-                    <p><strong>Аппроксимирующая функция:</strong> ${results.formula}</p>
-                    <p><strong>Коэффициенты:</strong> ${results.coefficients.map((c,i) => `a${i} = ${c.toFixed(6)}`).join(', ')}</p>
-                    <p><strong>Точность аппроксимации R²:</strong> ${results.rSquared.toFixed(6)} (${quality})</p>
-                    <p><strong>Количество точек данных:</strong> ${data.length}</p>
-                </div>
+                <p><strong>Тип функции:</strong> ${this.getFunctionName(functionType)}</p>
+                <p><strong>Формула:</strong> ${results.formula}</p>
+                <p><strong>Коэффициенты:</strong> ${results.coefficients.map((c,i) => `a${i} = ${c.toFixed(6)}`).join(', ')}</p>
+                <p><strong>Точность R²:</strong> ${results.rSquared.toFixed(6)} (${quality})</p>
+                <p><strong>Точек данных:</strong> ${data.length}</p>
             </div>
         `;
     }
@@ -84,7 +83,7 @@ class ApproximationApp {
             data: {
                 datasets: [
                     {
-                        label: 'Экспериментальные данные',
+                        label: 'Данные',
                         data: data,
                         backgroundColor: 'blue',
                         pointRadius: 6
@@ -94,36 +93,9 @@ class ApproximationApp {
                         data: this.generateCurvePoints(data, results.coefficients, functionType),
                         borderColor: 'red',
                         showLine: true,
-                        pointRadius: 0,
-                        borderWidth: 2
+                        pointRadius: 0
                     }
                 ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: `График аппроксимации (R² = ${results.rSquared.toFixed(4)})`
-                    }
-                },
-                scales: {
-                    x: {
-                        type: 'linear',
-                        position: 'bottom',
-                        title: {
-                            display: true,
-                            text: 'X'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Y'
-                        }
-                    }
-                }
             }
         });
     }
@@ -157,47 +129,6 @@ class ApproximationApp {
         }
         
         return points;
-    }
-
-    createEmptyChart() {
-        const ctx = document.getElementById('approximationChart').getContext('2d');
-        
-        if (this.chart) {
-            this.chart.destroy();
-        }
-
-        this.chart = new Chart(ctx, {
-            type: 'scatter',
-            data: { 
-                datasets: [] 
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'График аппроксимации'
-                    }
-                },
-                scales: {
-                    x: {
-                        type: 'linear',
-                        position: 'bottom',
-                        title: {
-                            display: true,
-                            text: 'X'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Y'
-                        }
-                    }
-                }
-            }
-        });
     }
 }
 
