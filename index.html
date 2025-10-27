@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Программа для аппроксимации функции</title>
-  
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.js"></script>
     <script src="data-manager.js"></script>
     <script src="math-processor.js"></script>
-    <script src="chart-renderer.js"></script>
-    <script src="report-generator.js"></script>
     <script src="app.js"></script>
 </head>
 <body>
@@ -23,7 +20,7 @@
         <div class="main-content">
             <div class="input-panel">
                 <section class="data-section">
-                    <h2>1. Ввод данных</h2>
+                    <h2>Ввод данных</h2>
                     <div class="data-input-methods">
                         <button id="addRowBtn">Добавить строку</button>
                         <button id="clearDataBtn">Очистить данные</button>
@@ -51,7 +48,7 @@
                 </section>
 
                 <section class="model-section">
-                    <h2>2. Выбор модели</h2>
+                    <h2>Выбор модели</h2>
                     <div class="model-selection">
                         <label for="functionType">Тип функции:</label>
                         <select id="functionType">
@@ -66,26 +63,11 @@
             </div>
 
             <div class="results-panel">
-                <section class="results-section">
-                    <h2>3. Вычисления </h2>
-                    <div id="resultsContainer" class="results-container">
-                        <div class="no-results">Здесь будет отображаться расчет...</div>
-                    </div>
-                </section>
-
-                <section class="graph-section">
-                    <h2>4. График</h2>
-                    <div class="chart-container">
-                        <canvas id="approximationChart"></canvas>
-                    </div>
-                </section>
-
                 <section class="report-section">
-                    <h2>5. Отчет</h2>
+                    <h2>Отчет</h2>
                     <div id="reportContainer" class="report-container">
-                        <div class="no-results">Результаты расчета появятся здесь</div>
+                        <div class="no-results">Введите данные и нажмите "Выполнить расчет"</div>
                     </div>
-                    <button id="copyResultsBtn" class="copy-btn">Копировать результаты</button>
                 </section>
             </div>
         </div>
