@@ -101,16 +101,15 @@ class ApproximationApp {
     }
 
     generateCurvePoints(data, coefficients, functionType) {
-        const points = [];
-        const xs = data.map(p => p.x);
-        const minX = Math.min(...xs);
-        const maxX = Math.max(...xs);
-        
-        const padding = (maxX - minX) * 0.1;
-        const startX = minX - padding;
-        const endX = maxX + padding;
-
-        for (let x = startX; x <= endX; x += (endX - startX) / 50) {
+    const points = [];
+    const xs = data.map(p => p.x);
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+    
+    // Если все X одинаковые, создаем точки вокруг этого значения
+    if (minX === maxX) {
+        const centerX = minX;
+        for (let x = centerX - 2; x <= centerX + 2; x += 0.1) {
             let y;
             
             if (functionType === 'linear') {
@@ -127,9 +126,32 @@ class ApproximationApp {
                 points.push({x: x, y: y});
             }
         }
-        
-        return points;
+    } else {
+        // Обычный случай - разные X
+        const padding = (maxX - minX) * 0.1;
+        const startX = minX - padding;
+        const endX = maxX + padding;
+        const step = (endX - startX) / 50;
+
+        for (let x = startX; x <= endX; x += step) {
+            let y;
+            
+            if (functionType === 'linear') {
+                y = coefficients[0] * x + coefficients[1];
+            } else if (functionType === 'quadratic') {
+                y = coefficients[0] * x * x + coefficients[1] * x + coefficients[2];
+            } else if (functionType === 'cubic') {
+                y = coefficients[0] * x * x * x + coefficients[1] * x * x + coefficients[2] * x + coefficients[3];
+            } else if (functionType === 'exponential') {
+                y = coefficients[0] * Math.exp(coefficients[1] * x);
+            }
+            
+            if (!isNaN(y) && isFinite(y)) {
+                points.push({x: x, y: y});
+            }
+        }
     }
+    return points;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
