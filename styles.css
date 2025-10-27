@@ -1,0 +1,257 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 1.1em;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.input-panel, .results-panel {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+/* Стили для ввода данных */
+.data-input-methods {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.calculate-btn {
+    background: #27ae60;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.calculate-btn:hover {
+    background: #219a52;
+}
+
+.copy-btn {
+    background: #9b59b6;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.copy-btn:hover {
+    background: #8e44ad;
+}
+
+.data-table-container {
+    overflow-x: auto;
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ecf0f1;
+}
+
+th {
+    background: #34495e;
+    color: white;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+/* Стили для выбора модели */
+.model-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+select {
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+}
+
+/* Стили для результатов */
+.results-container, .report-container {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    min-height: 100px;
+    border: 1px solid #e9ecef;
+}
+
+.no-results {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+.result-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 4px;
+    border-left: 4px solid #3498db;
+}
+
+.result-item h4 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.result-value {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+/* Стили для графика */
+.chart-container {
+    position: relative;
+    height: 400px;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+/* Сообщения валидации */
+.validation-message {
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.validation-message.error {
+    background: #ffeaa7;
+    color: #d63031;
+    border: 1px solid #fab1a0;
+}
+
+.validation-message.success {
+    background: #55efc4;
+    color: #00b894;
+    border: 1px solid #00b894;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .data-input-methods {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+    }
+    
+    .model-selection {
+        flex-direction: column;
+    }
+}
