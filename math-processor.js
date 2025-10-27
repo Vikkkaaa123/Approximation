@@ -57,9 +57,14 @@ class MathProcessor {
     }
 
     quadraticApproximation(data) {
-        if (data.length < 3) {
-            throw new Error('Нужно минимум 3 точки');
-        }
+    if (data.length < 3) {
+        throw new Error('Нужно минимум 3 точки');
+    }
+
+    const uniqueX = new Set(data.map(p => p.x));
+    if (uniqueX.size < 3) {
+        throw new Error('Для квадратичной аппроксимации нужны разные значения X');
+    }
 
         let sumX = 0, sumY = 0, sumX2 = 0, sumX3 = 0, sumX4 = 0, sumXY = 0, sumX2Y = 0;
 
@@ -103,9 +108,14 @@ class MathProcessor {
     }
 
     cubicApproximation(data) {
-        if (data.length < 4) {
-            throw new Error('Нужно минимум 4 точки');
-        }
+    if (data.length < 4) {
+        throw new Error('Нужно минимум 4 точки');
+    }
+
+    const uniqueX = new Set(data.map(p => p.x));
+    if (uniqueX.size < 4) {
+        throw new Error('Для кубической аппроксимации нужны разные значения X');
+    }
 
         let sumX = 0, sumY = 0, sumX2 = 0, sumX3 = 0, sumX4 = 0, sumX5 = 0, sumX6 = 0;
         let sumXY = 0, sumX2Y = 0, sumX3Y = 0;
