@@ -22,7 +22,6 @@ class ApproximationApp {
     }
 
     calculate() {
-
         if (!this.dataManager.isValid()) {
             alert('Нужно минимум 2 точки с числами!');
             return;
@@ -36,6 +35,7 @@ class ApproximationApp {
             
             this.showResults(results);
             this.drawChart(data, results, functionType);
+            this.showReport(data, results, functionType);
             
         } catch (error) {
             alert('Ошибка: ' + error.message);
@@ -46,21 +46,50 @@ class ApproximationApp {
         const container = document.getElementById('resultsContainer');
         
         container.innerHTML = `
-            <div class="result-item">
+            <div>
                 <h4>Функция:</h4>
                 <div>${results.formula}</div>
             </div>
-            <div class="result-item">
+            <div>
                 <h4>Коэффициенты:</h4>
                 ${results.coefficients.map((coef, i) => 
                     `<div>a${i} = ${coef.toFixed(4)}</div>`
                 ).join('')}
             </div>
-            <div class="result-item">
+            <div>
                 <h4>Точность R²:</h4>
                 <div>${results.rSquared.toFixed(4)}</div>
             </div>
         `;
+    }
+
+    showReport(data, results, functionType) {
+        const container = document.getElementById('reportContainer');
+        
+        const quality = results.rSquared >= 0.9 ? 'отличная' : 
+                       results.rSquared >= 0.7 ? 'хорошая' : 
+                       results.rSquared >= 0.5 ? 'удовлетворительная' : 'низкая';
+        
+        container.innerHTML = `
+            <div>
+                <h4>Отчет</h4>
+                <p>Тип функции: ${this.getFunctionName(functionType)}</p>
+                <p>Формула: ${results.formula}</p>
+                <p>Коэффициенты: ${results.coefficients.map((c,i) => `a${i}=${c.toFixed(4)}`).join(', ')}</p>
+                <p>Точность R²: ${results.rSquared.toFixed(4)} (${quality})</p>
+                <p>Точек данных: ${data.length}</p>
+            </div>
+        `;
+    }
+
+    getFunctionName(type) {
+        const names = {
+            'linear': 'Линейная',
+            'quadratic': 'Квадратичная',
+            'cubic': 'Кубическая',
+            'exponential': 'Экспоненциальная'
+        };
+        return names[type] || type;
     }
 
     drawChart(data, results, functionType) {
@@ -77,7 +106,8 @@ class ApproximationApp {
                     {
                         label: 'Данные',
                         data: data,
-                        backgroundColor: 'blue'
+                        backgroundColor: 'blue',
+                        pointRadius: 6
                     },
                     {
                         label: 'Аппроксимация',
@@ -92,39 +122,35 @@ class ApproximationApp {
     }
 
     generateCurvePoints(data, coefficients, functionType) {
-    const points = [];
-    const xs = data.map(p => p.x);
-    const minX = Math.min(...xs);
-    const maxX = Math.max(...xs);
-    
-    const padding = (maxX - minX) * 0.1;
-    const startX = minX - padding;
-    const endX = maxX + padding;
+        const points = [];
+        const xs = data.map(p => p.x);
+        const minX = Math.min(...xs);
+        const maxX = Math.max(...xs);
+        
+        const padding = (maxX - minX) * 0.1;
+        const startX = minX - padding;
+        const endX = maxX + padding;
 
-    for (let x = startX; x <= endX; x += (endX - startX) / 50) {
-        let y;
-        
-        if (functionType === 'linear') {
-            // y = ax + b
-            y = coefficients[0] * x + coefficients[1];
-        } else if (functionType === 'quadratic') {
-            // y = ax² + bx + c  
-            y = coefficients[0] * x * x + coefficients[1] * x + coefficients[2];
-        } else if (functionType === 'cubic') {
-            // y = ax³ + bx² + cx + d
-            y = coefficients[0] * x * x * x + coefficients[1] * x * x + coefficients[2] * x + coefficients[3];
-        } else if (functionType === 'exponential') {
-            // y = aeᵇˣ
-            y = coefficients[0] * Math.exp(coefficients[1] * x);
+        for (let x = startX; x <= endX; x += (endX - startX) / 50) {
+            let y;
+            
+            if (functionType === 'linear') {
+                y = coefficients[0] * x + coefficients[1];
+            } else if (functionType === 'quadratic') {
+                y = coefficients[0] * x * x + coefficients[1] * x + coefficients[2];
+            } else if (functionType === 'cubic') {
+                y = coefficients[0] * x * x * x + coefficients[1] * x * x + coefficients[2] * x + coefficients[3];
+            } else if (functionType === 'exponential') {
+                y = coefficients[0] * Math.exp(coefficients[1] * x);
+            }
+            
+            if (!isNaN(y) && isFinite(y)) {
+                points.push({x: x, y: y});
+            }
         }
         
-        if (!isNaN(y) && isFinite(y)) {
-            points.push({x: x, y: y});
-        }
+        return points;
     }
-    
-    return points;
-}
 
     createEmptyChart() {
         const ctx = document.getElementById('approximationChart').getContext('2d');
