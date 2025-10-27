@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программа для аппроксимации функции</title>
+  
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.js"></script>
+    <script src="data-manager.js"></script>
+    <script src="math-processor.js"></script>
+    <script src="chart-renderer.js"></script>
+    <script src="report-generator.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Программа для аппроксимации функции</h1>
+            <p>Аппроксимация экспериментальных данных методом наименьших квадратов</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Левая панель: Ввод данных и управление -->
+            <div class="input-panel">
+                <section class="data-section">
+                    <h2>1. Ввод данных</h2>
+                    <div class="data-input-methods">
+                        <button id="addRowBtn">Добавить строку</button>
+                        <button id="clearDataBtn">Очистить данные</button>
+                        <div class="file-upload">
+                            <input type="file" id="csvFile" accept=".csv" style="display: none;">
+                            <button id="importCsvBtn">Импорт CSV</button>
+                        </div>
+                    </div>
+                    
+                    <div class="data-table-container">
+                        <table id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>X</th>
+                                    <th>Y</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTableBody">
+                                <!-- Данные будут добавляться динамически -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="dataValidationMessage" class="validation-message"></div>
+                </section>
+
+                <section class="model-section">
+                    <h2>2. Выбор модели</h2>
+                    <div class="model-selection">
+                        <label for="functionType">Тип функции:</label>
+                        <select id="functionType">
+                            <option value="linear">Линейная (y = ax + b)</option>
+                            <option value="quadratic">Квадратичная (y = ax² + bx + c)</option>
+                            <option value="cubic">Кубическая (y = ax³ + bx² + cx + d)</option>
+                            <option value="exponential">Экспоненциальная (y = aeᵇˣ)</option>
+                        </select>
+                    </div>
+                    <button id="calculateBtn" class="calculate-btn">Выполнить расчет</button>
+                </section>
+            </div>
+
+            <!-- Правая панель: Результаты -->
+            <div class="results-panel">
+                <section class="results-section">
+                    <h2>3. Результаты аппроксимации</h2>
+                    <div id="resultsContainer" class="results-container">
+                        <div class="no-results">Выполните расчет для отображения результатов</div>
+                    </div>
+                </section>
+
+                <section class="graph-section">
+                    <h2>4. График</h2>
+                    <div class="chart-container">
+                        <canvas id="approximationChart"></canvas>
+                    </div>
+                </section>
+
+                <section class="report-section">
+                    <h2>5. Отчет</h2>
+                    <div id="reportContainer" class="report-container">
+                        <div class="no-results">Результаты расчета появятся здесь</div>
+                    </div>
+                    <button id="copyResultsBtn" class="copy-btn">Копировать результаты</button>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
