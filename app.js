@@ -38,28 +38,28 @@ class ApproximationApp {
     }
 
     showReport(data, results, functionType) {
-    const container = document.getElementById('reportContainer');
-    
-    const quality = results.rSquared >= 0.9 ? 'отличная' : 
-                   results.rSquared >= 0.7 ? 'хорошая' : 
-                   results.rSquared >= 0.5 ? 'удовлетворительная' : 'низкая';
-    
-    container.innerHTML = `
-        <div class="chart-container">
-            <canvas id="approximationChart"></canvas>
-        </div>
-        <div class="report-content">
-            <h3>Отчет по аппроксимации</h3>
-            <p><strong>Тип функции:</strong> ${this.getFunctionName(functionType)}</p>
-            <p><strong>Формула:</strong> ${results.formula}</p>
-            <p><strong>Коэффициенты:</strong> ${results.coefficients.map((c,i) => `a${i} = ${c.toFixed(6)}`).join(', ')}</p>
-            <p><strong>Точность R²:</strong> ${results.rSquared.toFixed(6)} (${quality})</p>
-            <p><strong>Точек данных:</strong> ${data.length}</p>
-        </div>
-    `;
+        const container = document.getElementById('reportContainer');
+        
+        const quality = results.rSquared >= 0.9 ? 'отличная' : 
+                       results.rSquared >= 0.7 ? 'хорошая' : 
+                       results.rSquared >= 0.5 ? 'удовлетворительная' : 'низкая';
+        
+        container.innerHTML = `
+            <div class="chart-container">
+                <canvas id="approximationChart"></canvas>
+            </div>
+            <div class="report-content">
+                <h3>Отчет по аппроксимации</h3>
+                <p><strong>Тип функции:</strong> ${this.getFunctionName(functionType)}</p>
+                <p><strong>Формула:</strong> ${results.formula}</p>
+                <p><strong>Коэффициенты:</strong> ${results.coefficients.map((c,i) => `a${i} = ${c.toFixed(6)}`).join(', ')}</p>
+                <p><strong>Точность R²:</strong> ${results.rSquared.toFixed(6)} (${quality})</p>
+                <p><strong>Точек данных:</strong> ${data.length}</p>
+            </div>
+        `;
 
-    this.drawChart(data, results, functionType);
-}
+        this.drawChart(data, results, functionType);
+    }
 
     getFunctionName(type) {
         const names = {
