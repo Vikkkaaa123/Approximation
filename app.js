@@ -32,52 +32,32 @@ class ApproximationApp {
 
         try {
             const results = this.mathProcessor.approximate(data, functionType);
-            
-            this.showResults(results);
-            this.drawChart(data, results, functionType);
             this.showReport(data, results, functionType);
-            
         } catch (error) {
             alert('Ошибка: ' + error.message);
         }
     }
 
-    showResults(results) {
-        const container = document.getElementById('resultsContainer');
-        
-        container.innerHTML = `
-            <div>
-                <h4>Функция:</h4>
-                <div>${results.formula}</div>
-            </div>
-            <div>
-                <h4>Коэффициенты:</h4>
-                ${results.coefficients.map((coef, i) => 
-                    `<div>a${i} = ${coef.toFixed(4)}</div>`
-                ).join('')}
-            </div>
-            <div>
-                <h4>Точность R²:</h4>
-                <div>${results.rSquared.toFixed(4)}</div>
-            </div>
-        `;
-    }
-
     showReport(data, results, functionType) {
         const container = document.getElementById('reportContainer');
+        
+        this.drawChart(data, results, functionType);
         
         const quality = results.rSquared >= 0.9 ? 'отличная' : 
                        results.rSquared >= 0.7 ? 'хорошая' : 
                        results.rSquared >= 0.5 ? 'удовлетворительная' : 'низкая';
         
         container.innerHTML = `
-            <div>
-                <h4>Отчет</h4>
-                <p>Тип функции: ${this.getFunctionName(functionType)}</p>
-                <p>Формула: ${results.formula}</p>
-                <p>Коэффициенты: ${results.coefficients.map((c,i) => `a${i}=${c.toFixed(4)}`).join(', ')}</p>
-                <p>Точность R²: ${results.rSquared.toFixed(4)} (${quality})</p>
-                <p>Точек данных: ${data.length}</p>
+            <div class="report-content">
+                <h3>Отчет по аппроксимации</h3>
+                <div class="report-section">
+                    <h4>Результаты расчета</h4>
+                    <p><strong>Тип функции:</strong> ${this.getFunctionName(functionType)}</p>
+                    <p><strong>Аппроксимирующая функция:</strong> ${results.formula}</p>
+                    <p><strong>Коэффициенты:</strong> ${results.coefficients.map((c,i) => `a${i} = ${c.toFixed(6)}`).join(', ')}</p>
+                    <p><strong>Точность аппроксимации R²:</strong> ${results.rSquared.toFixed(6)} (${quality})</p>
+                    <p><strong>Количество точек данных:</strong> ${data.length}</p>
+                </div>
             </div>
         `;
     }
@@ -104,7 +84,7 @@ class ApproximationApp {
             data: {
                 datasets: [
                     {
-                        label: 'Данные',
+                        label: 'Экспериментальные данные',
                         data: data,
                         backgroundColor: 'blue',
                         pointRadius: 6
@@ -114,9 +94,36 @@ class ApproximationApp {
                         data: this.generateCurvePoints(data, results.coefficients, functionType),
                         borderColor: 'red',
                         showLine: true,
-                        pointRadius: 0
+                        pointRadius: 0,
+                        borderWidth: 2
                     }
                 ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `График аппроксимации (R² = ${results.rSquared.toFixed(4)})`
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'X'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Y'
+                        }
+                    }
+                }
             }
         });
     }
@@ -153,51 +160,45 @@ class ApproximationApp {
     }
 
     createEmptyChart() {
-    const ctx = document.getElementById('approximationChart').getContext('2d');
-    
-    if (this.chart) {
-        this.chart.destroy();
-    }
+        const ctx = document.getElementById('approximationChart').getContext('2d');
+        
+        if (this.chart) {
+            this.chart.destroy();
+        }
 
-    this.chart = new Chart(ctx, {
-        type: 'scatter',
-        data: { 
-            datasets: [] 
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'График аппроксимации'
-                }
+        this.chart = new Chart(ctx, {
+            type: 'scatter',
+            data: { 
+                datasets: [] 
             },
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
                     title: {
                         display: true,
-                        text: 'X'
-                    },
-                    grid: {
-                        display: true
+                        text: 'График аппроксимации'
                     }
                 },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Y'
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'X'
+                        }
                     },
-                    grid: {
-                        display: true
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Y'
+                        }
                     }
                 }
             }
-        }
-    });
-}
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
