@@ -153,12 +153,50 @@ class ApproximationApp {
     }
 
     createEmptyChart() {
-        const ctx = document.getElementById('approximationChart').getContext('2d');
-        this.chart = new Chart(ctx, {
-            type: 'scatter',
-            data: { datasets: [] }
-        });
+    const ctx = document.getElementById('approximationChart').getContext('2d');
+    
+    if (this.chart) {
+        this.chart.destroy();
     }
+
+    this.chart = new Chart(ctx, {
+        type: 'scatter',
+        data: { 
+            datasets: [] 
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'График аппроксимации'
+                }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        display: true,
+                        text: 'X'
+                    },
+                    grid: {
+                        display: true
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Y'
+                    },
+                    grid: {
+                        display: true
+                    }
+                }
+            }
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
