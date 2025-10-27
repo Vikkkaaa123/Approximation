@@ -198,6 +198,7 @@ class ApproximationApp {
         }
     });
 }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new ApproximationApp();
