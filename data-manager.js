@@ -5,7 +5,7 @@ class DataManager {
         this.validationMessage = document.getElementById('dataValidationMessage');
         
         this.setupEvents();
-        this.addInitialRows(); 
+        this.addInitialRows();
     }
 
     setupEvents() {
@@ -22,30 +22,23 @@ class DataManager {
     }
 
     addRow() {
-        const rowIndex = this.tableBody.children.length;  // Номер новой строки
-        const row = document.createElement('tr');  // Создаем строку таблицы
+        const rowIndex = this.tableBody.children.length;
+        const row = document.createElement('tr');
         
         row.innerHTML = `
             <td>${rowIndex + 1}</td>
-            <td><input type="number" step="any" class="x-input" placeholder="Введите X"></td>
-            <td><input type="number" step="any" class="y-input" placeholder="Введите Y"></td>
+            <td><input type="number" step="any" class="x-input"></td>
+            <td><input type="number" step="any" class="y-input"></td>
             <td><button type="button" class="remove-row-btn">Удалить</button></td>
         `;
 
         row.querySelector('.remove-row-btn').addEventListener('click', () => {
             row.remove();
             this.updateRowNumbers();
-            this.collectData();
-        });
-
-        const inputs = row.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.addEventListener('input', () => this.collectData());
         });
 
         this.tableBody.appendChild(row);
     }
-
 
     updateRowNumbers() {
         const rows = this.tableBody.querySelectorAll('tr');
@@ -55,11 +48,10 @@ class DataManager {
     }
 
     clearData() {
-        if (confirm('Вы уверены, что хотите очистить все данные?')) {
+        if (confirm('Очистить все данные?')) {
             this.tableBody.innerHTML = '';
             this.dataPoints = [];
             this.addInitialRows();
-            this.clearValidationMessage();
         }
     }
 
@@ -73,40 +65,31 @@ class DataManager {
 
         const reader = new FileReader();
         reader.onload = (e) => {
-            const csvData = e.target.result;
-            this.parseCsvData(csvData);
+            this.parseCsvData(e.target.result);
         };
         reader.readAsText(file);
-        
-        event.target.value = '';
     }
 
     parseCsvData(csvData) {
-        try {
-            const lines = csvData.split('\n').filter(line => line.trim());
-            const newData = [];
+        const lines = csvData.split('\n');
+        const newData = [];
 
-            for (let i = 0; i < lines.length; i++) {
-                const cells = lines[i].split(',').map(cell => cell.trim());
+        for (let i = 0; i < lines.length; i++) {
+            const cells = lines[i].split(',');
+            
+            if (cells.length >= 2) {
+                const x = parseFloat(cells[0]);
+                const y = parseFloat(cells[1]);
                 
-                if (cells.length >= 2) {
-                    const x = parseFloat(cells[0]);
-                    const y = parseFloat(cells[1]);
-                    
-                    if (!isNaN(x) && !isNaN(y)) {
-                        newData.push({ x, y });
-                    }
+                if (!isNaN(x) && !isNaN(y)) {
+                    newData.push({ x, y });
                 }
             }
+        }
 
-            if (newData.length > 0) {
-                this.loadData(newData); 
-                this.showValidationMessage(`Успешно загружено ${newData.length} точек данных`, 'success');
-            } else {
-                this.showValidationMessage('Не удалось найти корректные данные в CSV файле', 'error');
-            }
-        } catch (error) {
-            this.showValidationMessage('Ошибка при чтении CSV файла', 'error');
+        if (newData.length > 0) {
+            this.loadData(newData);
+            alert(`Загружено ${newData.length} точек`);
         }
     }
 
@@ -125,12 +108,6 @@ class DataManager {
             row.querySelector('.remove-row-btn').addEventListener('click', () => {
                 row.remove();
                 this.updateRowNumbers();
-                this.collectData();
-            });
-
-            const inputs = row.querySelectorAll('input');
-            inputs.forEach(input => {
-                input.addEventListener('input', () => this.collectData());
             });
 
             this.tableBody.appendChild(row);
@@ -143,7 +120,7 @@ class DataManager {
         const rows = this.tableBody.querySelectorAll('tr');
         const newData = [];
 
-        rows.forEach((row, index) => {
+        rows.forEach((row) => {
             const xInput = row.querySelector('.x-input');
             const yInput = row.querySelector('.y-input');
             
@@ -156,19 +133,7 @@ class DataManager {
         });
 
         this.dataPoints = newData;
-        this.clearValidationMessage();
         return newData;
-    }
-
-
-    showValidationMessage(message, type) {
-        this.validationMessage.textContent = message;
-        this.validationMessage.className = `validation-message ${type}`;
-    }
-
-    clearValidationMessage() {
-        this.validationMessage.textContent = '';
-        this.validationMessage.className = 'validation-message';
     }
 
     getData() {
@@ -177,11 +142,6 @@ class DataManager {
 
     isValid() {
         const data = this.collectData();
-        if (data.length < 2) {
-            this.showValidationMessage('Нужно минимум 2 точки данных', 'error');
-            return false;
-        }
-        this.clearValidationMessage();
-        return true;
+        return data.length >= 2;
     }
 }
