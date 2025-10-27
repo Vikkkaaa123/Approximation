@@ -3,11 +3,12 @@ class DataManager {
         this.dataPoints = [];
         this.tableBody = document.getElementById('dataTableBody');
         this.validationMessage = document.getElementById('dataValidationMessage');
-        this.initEventListeners();
-        this.addInitialRows();
+        
+        this.setupEvents();
+        this.addInitialRows(); 
     }
 
-    initEventListeners() {
+    setupEvents() {
         document.getElementById('addRowBtn').addEventListener('click', () => this.addRow());
         document.getElementById('clearDataBtn').addEventListener('click', () => this.clearData());
         document.getElementById('importCsvBtn').addEventListener('click', () => this.triggerCsvImport());
@@ -15,15 +16,14 @@ class DataManager {
     }
 
     addInitialRows() {
-        // Добавляем 5 начальных строк для удобства
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 3; i++) {
             this.addRow();
         }
     }
 
     addRow() {
-        const rowIndex = this.tableBody.children.length;
-        const row = document.createElement('tr');
+        const rowIndex = this.tableBody.children.length;  // Номер новой строки
+        const row = document.createElement('tr');  // Создаем строку таблицы
         
         row.innerHTML = `
             <td>${rowIndex + 1}</td>
@@ -38,7 +38,6 @@ class DataManager {
             this.collectData();
         });
 
-        // Добавляем обработчики изменения данных
         const inputs = row.querySelectorAll('input');
         inputs.forEach(input => {
             input.addEventListener('input', () => this.collectData());
@@ -46,6 +45,7 @@ class DataManager {
 
         this.tableBody.appendChild(row);
     }
+
 
     updateRowNumbers() {
         const rows = this.tableBody.querySelectorAll('tr');
@@ -78,7 +78,6 @@ class DataManager {
         };
         reader.readAsText(file);
         
-        // Сбрасываем значение input для возможности повторной загрузки того же файла
         event.target.value = '';
     }
 
@@ -101,19 +100,19 @@ class DataManager {
             }
 
             if (newData.length > 0) {
-                this.loadData(newData);
+                this.loadData(newData); 
                 this.showValidationMessage(`Успешно загружено ${newData.length} точек данных`, 'success');
             } else {
                 this.showValidationMessage('Не удалось найти корректные данные в CSV файле', 'error');
             }
         } catch (error) {
             this.showValidationMessage('Ошибка при чтении CSV файла', 'error');
-            console.error('CSV parsing error:', error);
         }
     }
 
     loadData(data) {
         this.tableBody.innerHTML = '';
+        
         data.forEach((point, index) => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -143,8 +142,6 @@ class DataManager {
     collectData() {
         const rows = this.tableBody.querySelectorAll('tr');
         const newData = [];
-        let hasErrors = false;
-        const errorRows = [];
 
         rows.forEach((row, index) => {
             const xInput = row.querySelector('.x-input');
@@ -153,30 +150,16 @@ class DataManager {
             const x = parseFloat(xInput.value);
             const y = parseFloat(yInput.value);
 
-            // Сбрасываем стили ошибок
-            xInput.style.borderColor = '';
-            yInput.style.borderColor = '';
-
-            if (xInput.value !== '' && yInput.value !== '') {
-                if (!isNaN(x) && !isNaN(y)) {
-                    newData.push({ x, y });
-                } else {
-                    hasErrors = true;
-                    errorRows.push(index + 1);
-                    xInput.style.borderColor = '#e74c3c';
-                    yInput.style.borderColor = '#e74c3c';
-                }
+            if (xInput.value !== '' && yInput.value !== '' && !isNaN(x) && !isNaN(y)) {
+                newData.push({ x, y });
             }
         });
 
         this.dataPoints = newData;
 
-        if (hasErrors) {
-            this.showValidationMessage(`Обнаружены ошибки в строках: ${errorRows.join(', ')}. Проверьте введенные данные.`, 'error');
-        } else if (newData.length === 0) {
-            this.showValidationMessage('Введите данные для анализа', 'error');
-        } else if (newData.length < 2) {
-            this.showValidationMessage('Необходимо как минимум 2 точки данных', 'error');
+
+        if (newData.length < 2) {
+            this.showValidationMessage('Нужно минимум 2 точки данных', 'error');
         } else {
             this.clearValidationMessage();
         }
