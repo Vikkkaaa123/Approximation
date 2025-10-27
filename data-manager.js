@@ -156,16 +156,10 @@ class DataManager {
         });
 
         this.dataPoints = newData;
-
-
-        if (newData.length < 2) {
-            this.showValidationMessage('Нужно минимум 2 точки данных', 'error');
-        } else {
-            this.clearValidationMessage();
-        }
-
+        this.clearValidationMessage();
         return newData;
     }
+
 
     showValidationMessage(message, type) {
         this.validationMessage.textContent = message;
@@ -183,6 +177,11 @@ class DataManager {
 
     isValid() {
         const data = this.collectData();
-        return data.length >= 2;
+        if (data.length < 2) {
+            this.showValidationMessage('Нужно минимум 2 точки данных', 'error');
+            return false;
+        }
+        this.clearValidationMessage();
+        return true;
     }
 }
