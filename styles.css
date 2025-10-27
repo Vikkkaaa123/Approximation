@@ -255,3 +255,232 @@ select {
         flex-direction: column;
     }
 }
+
+/* Стили для результатов */
+.results-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formula {
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 8px;
+    background: #ecf0f1;
+    border-radius: 4px;
+}
+
+.coefficients {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.coefficient {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 4px 8px;
+    background: white;
+    border-radius: 3px;
+    border-left: 3px solid #3498db;
+}
+
+.accuracy {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.r-squared {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.quality {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.quality.excellent { background: #27ae60; color: white; }
+.quality.good { background: #f39c12; color: white; }
+.quality.moderate { background: #e67e22; color: white; }
+.quality.poor { background: #e74c3c; color: white; }
+
+/* Стили для отчета */
+.report-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.report-header {
+    background: #34495e;
+    color: white;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.report-header h3 {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.report-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
+
+.report-section {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+.report-section h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ecf0f1;
+    padding-bottom: 8px;
+}
+
+.formula-display {
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+
+.coefficients-display {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.coefficient-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #3498db;
+}
+
+.coefficient-label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.coefficient-value {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.metrics-grid, .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.metric-item, .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+
+.metric-label, .stat-item span {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.metric-value {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+.quality-excellent { color: #27ae60; }
+.quality-good { color: #f39c12; }
+.quality-moderate { color: #e67e22; }
+.quality-poor { color: #e74c3c; }
+
+.interpretation {
+    line-height: 1.6;
+    color: #555;
+}
+
+.interpretation p {
+    margin-bottom: 8px;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    background: #ffeaa7;
+    border: 1px solid #fab1a0;
+    border-radius: 6px;
+    padding: 15px;
+    color: #d63031;
+}
+
+.error-message h4 {
+    color: #d63031;
+    margin-bottom: 10px;
+}
+
+.error-hint {
+    font-size: 14px;
+    color: #e17055;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.result-item, .report-section {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Поддержка мобильных устройств */
+@media (max-width: 768px) {
+    .report-meta {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .metrics-grid, .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .coefficient-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .accuracy {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
