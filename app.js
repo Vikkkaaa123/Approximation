@@ -105,8 +105,7 @@ class ApproximationApp {
     const xs = data.map(p => p.x);
     const minX = Math.min(...xs);
     const maxX = Math.max(...xs);
-    
-    // Если все X одинаковые, создаем точки вокруг этого значения
+
     if (minX === maxX) {
         const centerX = minX;
         for (let x = centerX - 2; x <= centerX + 2; x += 0.1) {
@@ -127,7 +126,6 @@ class ApproximationApp {
             }
         }
     } else {
-        // Обычный случай - разные X
         const padding = (maxX - minX) * 0.1;
         const startX = minX - padding;
         const endX = maxX + padding;
