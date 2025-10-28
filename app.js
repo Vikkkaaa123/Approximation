@@ -3,7 +3,6 @@ class ApproximationApp {
         this.dataManager = new DataManager();
         this.mathProcessor = new MathProcessor();
         this.chart = null;
-        
         this.setupEvents();
     }
 
