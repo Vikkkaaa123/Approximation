@@ -3,16 +3,7 @@ class DataManager {
         this.dataPoints = [];
         this.tableBody = document.getElementById('dataTableBody');
         this.validationMessage = document.getElementById('dataValidationMessage');
-        
-        this.setupEvents();
         this.addInitialRows();
-    }
-
-    setupEvents() {
-        document.getElementById('addRowBtn').addEventListener('click', () => this.addRow());
-        document.getElementById('clearDataBtn').addEventListener('click', () => this.clearData());
-        document.getElementById('importCsvBtn').addEventListener('click', () => this.triggerCsvImport());
-        document.getElementById('csvFile').addEventListener('change', (e) => this.handleCsvImport(e));
     }
 
     addInitialRows() {
