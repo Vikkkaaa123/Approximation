@@ -47,10 +47,11 @@ class DataManager {
         });
     }
 
-    clearData() {
+   clearData() {
     if (confirm('Очистить все данные?')) {
-        this.addInitialRows();
+        this.tableBody.innerHTML = '';
         this.dataPoints = [];
+        this.addInitialRows();
     }
 }
 
