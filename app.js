@@ -10,6 +10,8 @@ class ApproximationApp {
         document.getElementById('calculateBtn').addEventListener('click', () => this.calculate());
         document.getElementById('addRowBtn').addEventListener('click', () => this.dataManager.addRow());
         document.getElementById('clearDataBtn').addEventListener('click', () => this.dataManager.clearData());
+        document.getElementById('importCsvBtn').addEventListener('click', () => this.dataManager.triggerCsvImport());
+        document.getElementById('csvFile').addEventListener('change', (e) => this.dataManager.handleCsvImport(e));
     }
 
     calculate() {
