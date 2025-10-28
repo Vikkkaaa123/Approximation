@@ -48,12 +48,11 @@ class DataManager {
     }
 
     clearData() {
-        if (confirm('Очистить все данные?')) {
-            this.tableBody.innerHTML = '';
-            this.dataPoints = [];
-            this.addInitialRows();
-        }
+    if (confirm('Очистить все данные?')) {
+        this.addInitialRows();
+        this.dataPoints = [];
     }
+}
 
     triggerCsvImport() {
         document.getElementById('csvFile').click();
