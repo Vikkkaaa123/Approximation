@@ -5,7 +5,7 @@ class DataManager {
         this.validationMessage = document.getElementById('dataValidationMessage');
         
         this.setupEvents();
-        this.addInitialRows();
+        //this.addInitialRows();
     }
 
     setupEvents() {
