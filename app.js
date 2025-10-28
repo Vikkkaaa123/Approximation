@@ -85,8 +85,8 @@ class ApproximationApp {
                     {
                         label: 'Данные',
                         data: data,
-                        backgroundColor: 'blue',
-                        pointRadius: 6
+                        backgroundColor: 'rgba(0, 0, 255, 0.3)',
+                        pointRadius: 3
                     },
                     {
                         label: 'Аппроксимация',
