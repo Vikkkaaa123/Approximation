@@ -5,19 +5,12 @@ class ApproximationApp {
         this.chart = null;
         
         this.setupEvents();
-        this.init();
     }
 
     setupEvents() {
         document.getElementById('calculateBtn').addEventListener('click', () => this.calculate());
         document.getElementById('addRowBtn').addEventListener('click', () => this.dataManager.addRow());
         document.getElementById('clearDataBtn').addEventListener('click', () => this.dataManager.clearData());
-    }
-
-    init() {
-        for (let i = 0; i < 3; i++) {
-            this.dataManager.addRow();
-        }
     }
 
     calculate() {
