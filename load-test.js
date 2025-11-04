@@ -35,4 +35,10 @@ function runLoadTest() {
 const btn = document.createElement('button');
 btn.textContent = 'Тест скорости';
 btn.onclick = runLoadTest;
-document.querySelector('header').appendChild(btn);
+
+let header = document.querySelector('header');
+if (!header) {
+    header = document.createElement('header');
+    document.body.insertBefore(header, document.body.firstChild);
+}
+header.appendChild(btn);
