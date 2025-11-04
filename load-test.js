@@ -2,6 +2,8 @@ function runLoadTest() {
     console.clear();
     console.log('НАГРУЗОЧНОЕ ТЕСТИРОВАНИЕ');
     console.log('------------------------');
+
+    const mathProcessor = new MathProcessor();
     
     const sizes = [10, 100, 1000, 10000];
     const functions = ['linear', 'quadratic', 'cubic', 'exponential'];
@@ -25,20 +27,27 @@ function runLoadTest() {
                 const time = performance.now() - startTime;
                 console.log(funcType + ': ' + time.toFixed(2) + 'ms');
             } catch (error) {
-                console.log(funcType + ': ошибка');
+                console.log(funcType + ': ошибка - ' + error.message);
             }
         }
         console.log('---');
     }
 }
 
-const btn = document.createElement('button');
-btn.textContent = 'Тест скорости';
-btn.onclick = runLoadTest;
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.createElement('button');
+    btn.textContent = 'Запустить нагрузочный тест';
+    btn.style.marginLeft = '10px';
+    btn.style.padding = '5px 10px';
+    btn.style.backgroundColor = '#4CAF50';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '3px';
+    btn.style.cursor = 'pointer';
+    btn.onclick = runLoadTest;
 
-let header = document.querySelector('header');
-if (!header) {
-    header = document.createElement('header');
-    document.body.insertBefore(header, document.body.firstChild);
-}
-header.appendChild(btn);
+    const header = document.querySelector('header');
+    if (header) {
+        header.appendChild(btn);
+    }
+});
