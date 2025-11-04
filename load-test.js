@@ -58,6 +58,7 @@ class LoadTester {
                 linearSuccess: linearTest.success,
                 quadraticSuccess: quadraticTest.success
             });
+            
             console.log(`Размер: ${size} | Линейная: ${linearTest.time.toFixed(2)}ms | Квадратичная: ${quadraticTest.time.toFixed(2)}ms`);
         }
         
@@ -76,12 +77,13 @@ class LoadTester {
                 result.quadraticTime.toFixed(2)
             );
         }
+        
         return this.results;
     }
 }
 
 function startLoadTest() {
-    const tester = new SimpleLoadTester();
+    const tester = new LoadTester();
     return tester.runAllTests();
 }
 
@@ -90,14 +92,19 @@ function addTestButton() {
     button.textContent = 'Запустить тест скорости';
     button.style.margin = '10px';
     button.style.padding = '10px';
+    button.style.background = '#4CAF50';
+    button.style.color = 'white';
+    button.style.border = 'none';
+    button.style.borderRadius = '4px';
+    button.style.cursor = 'pointer';
     
     button.onclick = function() {
         startLoadTest();
     };
     
-    const container = document.querySelector('.container');
-    if (container) {
-        container.insertBefore(button, container.firstChild);
+    const header = document.querySelector('header');
+    if (header) {
+        header.appendChild(button);
     }
 }
 
