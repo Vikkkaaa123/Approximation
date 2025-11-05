@@ -1,7 +1,5 @@
 function runLoadTest() {
-    console.clear();
     console.log('НАГРУЗОЧНОЕ ТЕСТИРОВАНИЕ');
-    console.log('------------------------');
 
     const mathProcessor = new MathProcessor();
     
@@ -9,12 +7,12 @@ function runLoadTest() {
     const functions = ['linear', 'quadratic', 'cubic', 'exponential'];
     
     for (let size of sizes) {
+        console.log(size + ' точек:');
+        
         let data = [];
         for (let i = 0; i < size; i++) {
             data.push({x: i, y: i * 2 + 1});
         }
-        
-        console.log(size + ' точек:');
         
         for (let funcType of functions) {
             if (funcType === 'exponential' && size < 2) continue;
@@ -22,6 +20,7 @@ function runLoadTest() {
             if (funcType === 'cubic' && size < 4) continue;
             
             const startTime = performance.now();
+            
             try {
                 mathProcessor.approximate(data, funcType);
                 const time = performance.now() - startTime;
@@ -30,7 +29,6 @@ function runLoadTest() {
                 console.log(funcType + ': ошибка - ' + error.message);
             }
         }
-        console.log('---');
     }
 }
 
