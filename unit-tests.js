@@ -34,3 +34,22 @@ function runUnitTests() {
         console.log('Тест 4 не пройден: ' + error.message);
     }
 }
+
+// Добавление кнопки для запуска модульных тестов
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.createElement('button');
+    btn.textContent = 'Запустить модульные тесты';
+    btn.style.marginLeft = '10px';
+    btn.style.padding = '5px 10px';
+    btn.style.backgroundColor = '#2196F3';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '3px';
+    btn.style.cursor = 'pointer';
+    btn.onclick = runUnitTests;
+
+    const header = document.querySelector('header');
+    if (header) {
+        header.appendChild(btn);
+    }
+});
